@@ -5,3 +5,4 @@ authors = ["Josh Teeter <joshteeter@gmail.com>"]
 
 [dependencies]
 xml-rs = "0.1.25"
+case = "0.0.1"
