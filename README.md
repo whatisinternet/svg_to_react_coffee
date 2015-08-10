@@ -14,16 +14,9 @@ embeded into react render functions.
 ### Compile yourself:
 
 1. Install [Rust and cargo](http://doc.crates.io/)
-
-2. ```shell
-    git clone git@github.com:whatisinternet/svg_to_react_coffee.git
-  ```
-
-3. ```shell
-    cd svg_to_react_coffee && cargo build --release
-  ```
-
-4.You can find the executable in target/release
+2. git clone git@github.com:whatisinternet/svg_to_react_coffee.git
+3. cd svg_to_react_coffee && cargo build --release
+4. You can find the executable in target/release
 
 ### Ruby gem:
   Coming soon!
