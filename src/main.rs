@@ -41,10 +41,10 @@ fn transform_attribute (attribute: String) -> String {
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
     if attribute_key.contains(":"){
-        attributes = format!("\"{}\": {}",attribute_key.to_string().to_camel_lowercase(),attribute_value);
+        attributes = format!("\"{}\": {}",attribute_key.to_string().replace("-", "_").to_camel_lowercase(),attribute_value);
     }
     else{
-        attributes = format!("{}: {}",attribute_key.to_camel_lowercase(),attribute_value);
+        attributes = format!("{}: {}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value);
     }
     return attributes.to_string();
 }
@@ -61,7 +61,7 @@ fn build_element(name: xml::name::OwnedName, attributes: Vec<xml::attribute::Own
     let temp_name: String = format!("{}", name);
     let svg_tag: String = parse_off_extra_w3c_details(temp_name);
     if valid_react_dom_element(&svg_tag) {
-        println!("{}{}", tab_in(depth), svg_tag);
+        println!("{}React.DOM.{}", tab_in(depth), svg_tag);
         build_attributes(attributes.clone(), depth);
     }
 }
@@ -78,7 +78,7 @@ fn parse_svg (file_name: String){
     let file = get_file(file_name);
     let mut parser = EventReader::new(file);
 
-    let mut depth = 0;
+    let mut depth = 2;
     for e in parser.events() {
         match e {
             XmlEvent::StartElement { name, attributes, .. } => {
@@ -97,6 +97,7 @@ fn parse_svg (file_name: String){
 fn main() {
   let svg_file: Vec<_> = env::args().collect();
   let file_name: Vec<&str> = svg_file[1].split(".svg").collect();
+  println!("module.exports = React.createFactory React.createClass\n\n  render: ->");
   if file_name.len() > 1 {
     parse_svg(svg_file[1].clone());
   }

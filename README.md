@@ -7,7 +7,7 @@ embeded into react render functions.
 
 ## TODO:
 - Write to something other than std::out
-- Wrap in React.CreateFactory React.CreateClass and a render: ->
+- Fix issue with style attribute not being correctly parsed.
 
 ## Installation:
 
