@@ -35,8 +35,12 @@ fn transform_attribute (attribute: String) -> String {
     let attribute_key_value: Vec<&str> = attribute.split("=").collect();
     let attribute_key: &str = attribute_key_value[0];
     let attribute_value: &str = attribute_key_value[1];
-    return formatted_attribute(attribute_key, attribute_value);
+    if attribute_key != "style" {
+        return formatted_attribute(attribute_key, attribute_value);
+    }
+    return "".to_string();
 }
+
 
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
