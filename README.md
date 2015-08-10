@@ -5,6 +5,9 @@ embeded into react render functions.
 
 -----
 
+# Demo:
+[Demo app](https://github.com/whatisinternet/react-svg-demo)
+
 ## TODO:
 - Write to something other than std::out
 - Fix issue with style attribute not being correctly parsed.
