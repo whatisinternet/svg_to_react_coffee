@@ -35,29 +35,37 @@ fn transform_attribute (attribute: String) -> String {
     let attribute_key_value: Vec<&str> = attribute.split("=").collect();
     let attribute_key: &str = attribute_key_value[0];
     let attribute_value: &str = attribute_key_value[1];
-    if attribute_key != "style" {
-        return formatted_attribute(attribute_key, attribute_value);
-    }
-    return "".to_string();
+    return formatted_attribute(attribute_key, attribute_value.clone());
 }
-
 
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
-    if attribute_key.contains(":"){
-        attributes = format!("\"{}\": {}",attribute_key.to_string().replace("-", "_").to_camel_lowercase(),attribute_value);
-    }
-    else{
-        attributes = format!("{}: {}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value);
+    if attribute_key == "style" {
+        attributes = format!("{}: {{ {}\" }}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value.replace("-","_").replace("\"","").replace(":",": \"").replace(";","\", ").to_string().to_camel_lowercase());
+    } else {
+        if attribute_key.contains(":"){
+            attributes = format!("\"{}\": {}",attribute_key.to_string().replace("-", "_").to_camel_lowercase(),attribute_value);
+        }
+        else{
+            attributes = format!("{}: {}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value);
+        }
     }
     return attributes.to_string();
 }
 
 fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usize) {
-    for attribute in attributes{
-        let temp_attribute: String = format!("{}", attribute);
-        let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
-        println!("{}{}", tab_in(depth + 1), transform_attribute(parsed_attribute));
+    if attributes.len() == 1 {
+        for attribute in attributes{
+            let temp_attribute: String = format!("{}", attribute);
+            let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
+            println!("{}{},", tab_in(depth + 1), transform_attribute(parsed_attribute));
+        }
+    }else {
+        for attribute in attributes{
+            let temp_attribute: String = format!("{}", attribute);
+            let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
+            println!("{}{}", tab_in(depth + 1), transform_attribute(parsed_attribute));
+        }
     }
 }
 
