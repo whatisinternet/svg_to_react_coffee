@@ -1,6 +1,6 @@
 # SVG to React Coffee
 
-Converts SVG images into valid(ish) React SVG components that can be easily
+Converts SVG images into valid React SVG components that can be easily
 embeded into react render functions.
 
 -----
@@ -10,7 +10,10 @@ embeded into react render functions.
 
 ## TODO:
 - Write to something other than std::out
-- Fix issue with style attribute not being correctly parsed.
+- Verify attribute tags
+- Return warnings on failed tags
+- Config options for passing in supported tags, and attributes
+- Possibly split off HTML renderer as related project
 
 ## Installation:
 
@@ -32,6 +35,31 @@ embeded into react render functions.
   - Write to file:
 
     ./svg_to_react_coffee file.svg > output.coffee
+
+## Limitations:
+
+This cargo is limited by ReactJS's implementation of the SVG spec.
+
+The currently supported list of tags are as follows:
+```code
+  circle clipPath defs ellipse g line linearGradient 
+  mask path pattern polygon polyline radialGradient 
+  rect stop svg text tspan
+```
+
+Currently any failed tag gets dropped and the parser will continue onwards
+without warning.
+
+Further, some tags while supported do not fully support all attributes.
+
+The currently supported list of attributes are as follows:
+```code
+  clipPath cx cy d dx dy fill fillOpacity fontFamily fontSize fx fy
+  gradientTransform gradientUnits markerEnd markerMid markerStart offset opacity
+  patternContentUnits patternUnits points preserveAspectRatio r rx ry
+  spreadMethod stopColor stopOpacity stroke strokeDasharray strokeLinecap
+  strokeOpacity strokeWidth textAnchor transform version viewBox x1 x2 x y1 y2 y
+```
 
 ## Contributing
 
