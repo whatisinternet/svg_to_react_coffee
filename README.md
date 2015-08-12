@@ -38,7 +38,7 @@ embeded into react render functions.
 
 ## Limitations:
 
-This cargo is limited by ReactJS's implementation of the SVG spec.
+This cargo is limited by [ReactJS's implementation of the SVG spec](https://facebook.github.io/react/docs/tags-and-attributes.html).
 
 The currently supported list of tags are as follows:
 ```code
@@ -60,6 +60,9 @@ The currently supported list of attributes are as follows:
   spreadMethod stopColor stopOpacity stroke strokeDasharray strokeLinecap
   strokeOpacity strokeWidth textAnchor transform version viewBox x1 x2 x y1 y2 y
 ```
+
+[Open SVG Pull requests for React](https://github.com/facebook/react/pulls?&q=is%3Apr+svg)
+
 
 ## Contributing
 
