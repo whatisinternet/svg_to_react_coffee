@@ -41,13 +41,33 @@ fn transform_attribute (attribute: String) -> String {
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
     if attribute_key == "style" {
-        attributes = format!("{}: {{ {}\" }}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value.replace("-","_").replace("\"","").replace(":",": \"").replace(";","\", ").to_string().to_camel_lowercase());
+        attributes = format!("{}: {{ {}\" }}",
+                             attribute_key
+                             .replace("-","_")
+                             .to_camel_lowercase(),
+                             attribute_value
+                                .replace(",","")
+                                .replace("-","_")
+                                .replace("\"","")
+                                .replace(":",": \"")
+                                .replace(";","\", ")
+                                .to_string()
+                                .to_camel_lowercase());
     } else {
         if attribute_key.contains(":"){
-            attributes = format!("\"{}\": {}",attribute_key.to_string().replace("-", "_").to_camel_lowercase(),attribute_value);
+            attributes = format!("\"{}\": {}",
+                                 attribute_key
+                                 .to_string()
+                                 .replace("-", "_")
+                                 .to_camel_lowercase(),
+                                 attribute_value);
         }
         else{
-            attributes = format!("{}: {}",attribute_key.replace("-","_").to_camel_lowercase(),attribute_value);
+            attributes = format!("{}: {}",
+                                 attribute_key
+                                 .replace("-","_")
+                                 .to_camel_lowercase(),
+                                 attribute_value);
         }
     }
     return attributes.to_string();
@@ -58,7 +78,7 @@ fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usiz
         for attribute in attributes{
             let temp_attribute: String = format!("{}", attribute);
             let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
-            println!("{}{},", tab_in(depth + 1), transform_attribute(parsed_attribute));
+            println!("{}{}", tab_in(depth + 1), transform_attribute(parsed_attribute));
         }
     }else {
         for attribute in attributes{
@@ -67,9 +87,13 @@ fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usiz
             println!("{}{}", tab_in(depth + 1), transform_attribute(parsed_attribute));
         }
     }
+    println!("{},", tab_in(depth +1));
 }
 
-fn build_element(name: xml::name::OwnedName, attributes: Vec<xml::attribute::OwnedAttribute>, depth: usize) {
+fn build_element(name: xml::name::OwnedName,
+                 attributes: Vec<xml::attribute::OwnedAttribute>,
+                 depth: usize) {
+
     let temp_name: String = format!("{}", name);
     let svg_tag: String = parse_off_extra_w3c_details(temp_name);
     if valid_react_dom_element(&svg_tag) {
@@ -98,6 +122,13 @@ fn parse_svg (file_name: String){
                 depth += 1;
             }
             XmlEvent::EndElement { .. } => {
+                depth -= 1;
+            }
+            XmlEvent::Characters(data) => {
+                depth += 1;
+                if !data.contains(">") {
+                    println!("{}\"{}\"\n\n", tab_in(depth), data.to_string());
+                }
                 depth -= 1;
             }
             _ => {}
