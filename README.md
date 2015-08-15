@@ -54,7 +54,7 @@ Further, some tags while supported do not fully support all attributes.
 
 The currently supported list of attributes are as follows:
 ```code
-  clipPath cx cy d dx dy fill fillOpacity fontFamily fontSize fx fy
+  style clipPath cx cy d dx dy fill fillOpacity fontFamily fontSize fx fy
   gradientTransform gradientUnits markerEnd markerMid markerStart offset opacity
   patternContentUnits patternUnits points preserveAspectRatio r rx ry
   spreadMethod stopColor stopOpacity stroke strokeDasharray strokeLinecap
