@@ -12,12 +12,15 @@ fn valid_react_dom_element (test_element: &str) -> bool {
 
 pub fn build_element(name: xml::name::OwnedName,
                  attributes: Vec<xml::attribute::OwnedAttribute>,
-                 depth: usize) {
+                 depth: usize) -> bool{
 
     let temp_name: String = format!("{}", name);
     let svg_tag: String = parse_off_extra_w3c_details(temp_name);
     if valid_react_dom_element(&svg_tag) {
         println!("{}React.DOM.{}", tab_in(depth), svg_tag);
         build_attributes(attributes.clone(), depth);
+        return true
+    } else {
+        return false
     }
 }

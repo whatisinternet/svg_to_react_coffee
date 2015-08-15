@@ -13,21 +13,28 @@ pub fn parse_svg (file_name: String){
     let mut parser = EventReader::new(file);
 
     let mut depth = 2;
+    let mut was_valid_element = false;
     for e in parser.events() {
         match e {
             XmlEvent::StartElement { name, attributes, .. } => {
-                build_element(name, attributes, depth);
-                depth += 1;
+                was_valid_element = build_element(name, attributes, depth);
+                if was_valid_element {
+                    depth += 1;
+                }
             }
             XmlEvent::EndElement { .. } => {
-                depth -= 1;
+                if was_valid_element {
+                    depth -= 1;
+                }
             }
             XmlEvent::Characters(data) => {
-                depth += 1;
-                if !data.contains(">") {
-                    println!("{}\"{}\"\n\n", tab_in(depth), data.to_string());
+                if was_valid_element {
+                    depth += 1;
+                    if !data.contains(">") {
+                        println!("{}\"{}\"\n\n", tab_in(depth), data.to_string());
+                    }
+                    depth -= 1;
                 }
-                depth -= 1;
             }
             _ => {}
         }
