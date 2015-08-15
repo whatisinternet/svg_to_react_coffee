@@ -10,7 +10,6 @@ embeded into react render functions.
 
 ## TODO:
 - Write to something other than std::out
-- Verify attribute tags
 - Return warnings on failed tags
 - Config options for passing in supported tags, and attributes
 - Possibly split off HTML renderer as related project
