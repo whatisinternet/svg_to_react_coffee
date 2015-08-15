@@ -6,7 +6,7 @@ use parser::util::*;
 
 fn valid_react_attribute(test_element: &str) -> bool {
     let valid_react_attributes= [
-"style", "clipPath", "cx", "cy", "d", "dx", "dy", "fill", "fillOpacity", "fontFamily",
+"width", "height", "style", "clipPath", "cx", "cy", "d", "dx", "dy", "fill", "fillOpacity", "fontFamily",
 "fontSize", "fx", "fy", "gradientTransform", "gradientUnits", "markerEnd",
 "markerMid", "markerStart", "offset", "opacity", "patternContentUnits",
 "patternUnits", "points", "preserveAspectRatio", "r", "rx", "ry",

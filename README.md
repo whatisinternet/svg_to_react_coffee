@@ -9,6 +9,7 @@ embeded into react render functions.
 [Demo app](https://github.com/whatisinternet/react-svg-demo)
 
 ## TODO:
+- Only write out if within a valid attribute
 - Write to something other than std::out
 - Return warnings on failed tags
 - Config options for passing in supported tags, and attributes
