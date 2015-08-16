@@ -105,7 +105,7 @@ fn print_valid_attribute( depth: usize, attribute: xml::attribute::OwnedAttribut
 
 pub fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usize) {
     for attribute in attributes{
-        print_valid_attribute( depth, attribute);
+        print_valid_attribute( depth, attribute )
     }
     println!("{},", tab_in(depth +1));
 }
