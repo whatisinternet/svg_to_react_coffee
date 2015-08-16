@@ -30,7 +30,9 @@ fn valid_react_attribute(test_element: &str) -> bool {
 "srcDoc", "srcSet", "start", "step", "style", "tabIndex", "target", "title",
 "type", "useMap", "value", "width", "wmode"
 ];
-    return valid_react_attributes.contains(&test_element)
+    return valid_react_attributes.contains(&test_element) ||
+        test_element.starts_with("data") ||
+        test_element.starts_with("aria");
 }
 
 
@@ -44,7 +46,8 @@ fn transform_attribute (attribute: String) -> String {
 
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
-    if valid_react_attribute(attribute_key) {
+    let temp_attribute = attribute_key.replace("-","_").to_camel_lowercase().to_string();
+    if valid_react_attribute(&temp_attribute) {
         if attribute_key == "style" {
             attributes = format!("{}: {{ {}\" }}",
                                 attribute_key
@@ -76,7 +79,7 @@ fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
                                     attribute_value);
             }
         }
-    }
+   }
     return attributes.to_string();
 }
 
