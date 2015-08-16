@@ -1,18 +1,11 @@
-extern crate xml;
-extern crate case;
+extern crate svg_to_react;
 
+use svg_to_react::convert;
 use std::env;
 
-mod parser;
-mod file_loading;
-
-use parser::parser::*;
-
 fn main() {
-  let svg_file: Vec<_> = env::args().collect();
-  let file_name: Vec<&str> = svg_file[1].split(".svg").collect();
-  println!("module.exports = React.createFactory React.createClass\n\n  render: ->");
-  if file_name.len() > 1 {
-    parse_svg(svg_file[1].clone());
-  }
+    let svg_file: Vec<_> = env::args().collect();
+    let file_name: String = svg_file[1].to_string();
+    let full_file_path_and_name = format!("{}/{}",env::current_dir().unwrap().display(),file_name);
+    convert(full_file_path_and_name.clone());
 }

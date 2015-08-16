@@ -8,6 +8,14 @@ repository ="https://github.com/whatisinternet/svg_to_react_coffee"
 readme = "README.md"
 keywords = ["svg", "react", "coffeescript"]
 
+[lib]
+name = "svg_to_react"
+path = "lib/lib.rs"
+
+[[bin]]
+name = "svg_to_react_bin"
+path = "src/main.rs"
+
 [dependencies]
 xml-rs = "0.1.25"
 case = "0.0.1"
