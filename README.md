@@ -10,6 +10,7 @@ embeded into react render functions.
 
 ## TODO:
 - Write to something other than std::out
+- TESTS!
 - Return warnings on failed tags
 - Config options for passing in supported tags, and attributes
 - Possibly split off HTML renderer as related project
@@ -23,17 +24,35 @@ embeded into react render functions.
 3. cd svg_to_react_coffee && cargo build --release
 4. You can find the executable in target/release
 
-### Ruby gem:
-  Coming soon!
+## Usage:
 
-## Usage
+### As an executable:
   - Print to screen:
 
-    ./svg_to_react_coffee file.svg
+    ./svg_to_react_bin file.svg
 
   - Write to file:
 
-    ./svg_to_react_coffee file.svg > output.coffee
+    ./svg_to_react_bin file.svg > output.coffee
+
+### As a library:
+
+```rust
+...
+extern crate svg_to_react;
+
+use svg_to_react::convert;
+...
+fn main() {
+...
+  convert(file_path);
+...
+}
+
+```
+
+NB: The library has been set to export as a C non-clobbered method to inter-op
+with Python, Ruby, C, etc.
 
 ## Limitations:
 
@@ -52,6 +71,7 @@ without warning.
 Further, some tags while supported do not fully support all attributes.
 
 The currently supported list of attributes are as follows:
+
 ```code
   width height style clipPath cx cy d dx dy fill fillOpacity fontFamily fontSize fx fy
   gradientTransform gradientUnits markerEnd markerMid markerStart offset opacity
@@ -59,6 +79,24 @@ The currently supported list of attributes are as follows:
   spreadMethod stopColor stopOpacity stroke strokeDasharray strokeLinecap
   strokeOpacity strokeWidth textAnchor transform version viewBox x1 x2 x y1 y2 y
 ```
+
+and 
+
+```code
+accept acceptCharset accessKey action allowFullScreen allowTransparency alt
+async autoComplete autoFocus autoPlay cellPadding cellSpacing charSet checked
+classID className colSpan cols content contentEditable contextMenu controls
+coords crossOrigin data dateTime defer dir disabled download draggable encType
+form formAction formEncType formMethod formNoValidate formTarget frameBorder
+headers height hidden high href hrefLang htmlFor httpEquiv icon id label lang
+list loop low manifest marginHeight marginWidth max maxLength media mediaGroup
+method min multiple muted name noValidate open optimum pattern placeholder
+poster preload radioGroup readOnly rel required role rowSpan rows sandbox scope
+scoped scrolling seamless selected shape size sizes span spellCheck src srcDoc
+srcSet start step style tabIndex target title type useMap value width wmode
+```
+
+Also any attribute that uses data-* or aria-*
 
 [Open SVG Pull requests for React](https://github.com/facebook/react/pulls?&q=is%3Apr+svg)
 
