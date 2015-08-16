@@ -56,46 +56,56 @@ fn parse_attribute_value ( attribute_value: &str) -> String {
         .to_camel_lowercase();
 }
 
+fn is_style_attribute (attribute_key: &str) -> bool {
+   return  attribute_key == "style"
+}
+
+fn parse_style_attribute( attribute_key: &str, attribute_value: &str) -> String {
+    return format!("{}: {{ {}\" }}",
+                        attribute_key
+                        .replace("-","_")
+                        .to_camel_lowercase(),
+                        parse_attribute_value(attribute_value));
+}
+
+fn parse_normal_attribute( attribute_key: &str, attribute_value: &str) -> String {
+    return format!("{}: {}",
+                        attribute_key
+                        .replace("-","_")
+                        .to_camel_lowercase(),
+                        attribute_value);
+}
+
+fn parse_valid_attribute( attribute_key: &str, attribute_value: &str) -> String {
+    if is_style_attribute(attribute_key) {
+        return  parse_style_attribute(attribute_key, attribute_value);
+    } else if !attribute_key.contains(":"){
+        return parse_normal_attribute(attribute_key, attribute_value);
+    }
+    return "".to_string();
+}
 
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
     let temp_attribute = attribute_key.replace("-","_").to_camel_lowercase().to_string();
     if valid_react_attribute(&temp_attribute) {
-        if attribute_key == "style" {
-            attributes = format!("{}: {{ {}\" }}",
-                                attribute_key
-                                .replace("-","_")
-                                .to_camel_lowercase(),
-                                parse_attribute_value(attribute_value));
-        } else {
-            if attribute_key.contains(":"){
-                attributes = format!("\"{}\": {}",
-                                    attribute_key
-                                    .to_string()
-                                    .replace("-", "_")
-                                    .to_camel_lowercase(),
-                                    attribute_value);
-            }
-            else{
-                attributes = format!("{}: {}",
-                                    attribute_key
-                                    .replace("-","_")
-                                    .to_camel_lowercase(),
-                                    attribute_value);
-            }
-        }
+        return parse_valid_attribute(attribute_key, attribute_value);
    }
     return attributes.to_string();
 }
 
+fn print_valid_attribute( depth: usize, attribute: xml::attribute::OwnedAttribute) {
+    let temp_attribute: String = format!("{}", attribute);
+    let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
+    let transformed_attribute: String = format!("{}",transform_attribute(parsed_attribute));
+    if transformed_attribute != ""{
+        println!("{}{}", tab_in(depth + 1), transformed_attribute);
+    }
+}
+
 pub fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usize) {
     for attribute in attributes{
-        let temp_attribute: String = format!("{}", attribute);
-        let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
-        let transformed_attribute: String = format!("{}",transform_attribute(parsed_attribute));
-        if transformed_attribute != ""{
-            println!("{}{}", tab_in(depth + 1), transformed_attribute);
-        }
+        print_valid_attribute( depth, attribute);
     }
     println!("{},", tab_in(depth +1));
 }
