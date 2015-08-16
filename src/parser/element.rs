@@ -10,17 +10,23 @@ pub fn build_element(name: xml::name::OwnedName,
 
     let temp_name: String = format!("{}", name);
     let svg_tag: String = parse_off_extra_w3c_details(temp_name);
-    return build_valid_element(svg_tag, attributes, depth);
+    return print_element(svg_tag, attributes, depth);
 }
 
-    fn build_valid_element(svg_tag: String,
+    fn print_element(svg_tag: String,
                            attributes: Vec<xml::attribute::OwnedAttribute>,
                            depth: usize) -> bool {
         if valid_react_dom_element(&svg_tag) {
-            println!("{}React.DOM.{}", tab_in(depth), svg_tag);
-            build_attributes(attributes.clone(), depth);
+            print_valid_element_and_attributes(svg_tag, attributes, depth);
             return true
         } else {
             return false
         }
     }
+
+        fn print_valid_element_and_attributes(svg_tag: String,
+                           attributes: Vec<xml::attribute::OwnedAttribute>,
+                           depth: usize) {
+            println!("{}React.DOM.{}", tab_in(depth), svg_tag);
+            build_attributes(attributes.clone(), depth);
+        }
