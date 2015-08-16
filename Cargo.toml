@@ -1,6 +1,6 @@
 [package]
 name = "svg_to_react_coffee"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Josh Teeter <joshteeter@gmail.com>"]
 license = "MIT"
 description = "A SVG to Reactified coffeescript parser in pure Rust"
