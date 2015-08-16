@@ -44,6 +44,19 @@ fn transform_attribute (attribute: String) -> String {
     return formatted_attribute(attribute_key, attribute_value.clone());
 }
 
+fn parse_attribute_value ( attribute_value: &str) -> String {
+    return attribute_value
+        .replace(",","")
+        .replace("-","_")
+        .replace("\"","")
+        .replace(":",": \"")
+        .replace(";","\", ")
+        .trim_right_matches("\", ")
+        .to_string()
+        .to_camel_lowercase();
+}
+
+
 fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
     let mut attributes = "".to_string();
     let temp_attribute = attribute_key.replace("-","_").to_camel_lowercase().to_string();
@@ -53,15 +66,7 @@ fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
                                 attribute_key
                                 .replace("-","_")
                                 .to_camel_lowercase(),
-                                attribute_value
-                                    .replace(",","")
-                                    .replace("-","_")
-                                    .replace("\"","")
-                                    .replace(":",": \"")
-                                    .replace(";","\", ")
-                                    .trim_right_matches("\", ")
-                                    .to_string()
-                                    .to_camel_lowercase());
+                                parse_attribute_value(attribute_value));
         } else {
             if attribute_key.contains(":"){
                 attributes = format!("\"{}\": {}",
