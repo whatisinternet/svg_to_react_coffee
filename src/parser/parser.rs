@@ -18,14 +18,10 @@ pub fn parse_svg (file_name: String){
         match e {
             XmlEvent::StartElement { name, attributes, .. } => {
                 was_valid_element = build_element(name, attributes, depth);
-                if was_valid_element {
-                    depth += 1;
-                }
+                depth += 1;
             }
             XmlEvent::EndElement { .. } => {
-                if was_valid_element {
-                    depth -= 1;
-                }
+                depth -= 1;
             }
             XmlEvent::Characters(data) => {
                 if was_valid_element {
