@@ -9,9 +9,13 @@ embeded into react render functions.
 [Demo app](https://github.com/whatisinternet/react-svg-demo)
 
 ## TODO:
+
+### Library features
 - Write to something other than std::out
 - TESTS!
 - Return warnings on failed tags
+
+### Binary features
 - Config options for passing in supported tags, and attributes
 - Possibly split off HTML renderer as related project
 
@@ -29,11 +33,15 @@ embeded into react render functions.
 ### As an executable:
   - Print to screen:
 
-    ./svg_to_react_bin file.svg
+```shell
+./svg_to_react_bin file.svg
+```
 
   - Write to file:
 
-    ./svg_to_react_bin file.svg > output.coffee
+```shell
+./svg_to_react_bin file.svg > output.coffee
+```
 
 ### As a library:
 
