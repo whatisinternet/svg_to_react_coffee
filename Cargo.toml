@@ -9,6 +9,7 @@ readme = "README.md"
 keywords = ["svg", "react", "coffeescript"]
 
 [lib]
+crate_type= ["dylib"]
 name = "svg_to_react"
 path = "lib/lib.rs"
 
