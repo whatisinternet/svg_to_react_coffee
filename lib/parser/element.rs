@@ -38,7 +38,7 @@ pub fn build_element(name: xml::name::OwnedName,
                            attributes: Vec<xml::attribute::OwnedAttribute>,
                            depth: usize) -> Vec<String>{
 
-            let mut dom_element: Vec<String> = vec!(format!("{}React.DOM.{}", tab_in(depth), svg_tag));
+            let dom_element: Vec<String> = vec!(format!("{}React.DOM.{}", tab_in(depth), svg_tag));
 
             build_attributes(attributes.clone(), depth);
 

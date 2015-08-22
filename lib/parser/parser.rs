@@ -10,7 +10,7 @@ use xml::reader::events::*;
 pub fn parse_svg (file_name: String, header_string: String) -> Vec<String>{
 
     let file = get_file(file_name);
-    let output_vector: Vec<String> = vec!();
+    let mut output_vector: Vec<String> = vec!(header_string);
     let mut parser = EventReader::new(file);
 
     // let mut output_vector: Vec<String> = [""];
@@ -21,9 +21,11 @@ pub fn parse_svg (file_name: String, header_string: String) -> Vec<String>{
     for e in parser.events() {
         match e {
             XmlEvent::StartElement { name, attributes, .. } => {
-                let mut element_vector: Vec<String> = build_element(name, attributes, depth);
-                output_vector.push_all(element_vector.to_vec());
-                was_valid_element = is_valid_element(name);
+                let element_vector: Vec<String> = build_element(name.clone(), attributes, depth);
+                for completed_element in element_vector {
+                    output_vector.push(completed_element.clone());
+                }
+                was_valid_element = is_valid_element(name.clone());
                 depth += 1;
             }
             XmlEvent::EndElement { .. } => {
