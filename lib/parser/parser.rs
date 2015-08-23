@@ -35,7 +35,9 @@ pub fn parse_svg (file_name: String, header_string: String) -> Vec<String>{
                 if was_valid_element {
                     depth += 1;
                     if !data.contains(">") {
-                        println!("{}\"{}\"\n\n", tab_in(depth), data.to_string());
+                        let valid_data: String = format!("{}\"{}\"\n\n", tab_in(depth), data.to_string());
+                        output_vector.push(valid_data);
+
                     }
                     depth -= 1;
                 }
