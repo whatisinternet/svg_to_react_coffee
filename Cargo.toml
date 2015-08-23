@@ -7,6 +7,11 @@ description = "A SVG to Reactified coffeescript parser in pure Rust"
 repository ="https://github.com/whatisinternet/svg_to_react_coffee"
 readme = "README.md"
 keywords = ["svg", "react", "coffeescript"]
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+]
+
 
 [lib]
 crate_type= ["dylib", "rlib"]
