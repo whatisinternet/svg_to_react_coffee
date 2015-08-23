@@ -11,7 +11,10 @@ include = [
     "**/*.rs",
     "Cargo.toml",
 ]
-
+exclude = [
+    "**/*.svg",
+    "target"
+]
 
 [lib]
 crate_type= ["dylib", "rlib"]
