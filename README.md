@@ -11,12 +11,11 @@ embeded into react render functions.
 ## TODO:
 
 ### Library features
-- Write to something other than std::out
 - TESTS!
 - Return warnings on failed tags
+- Config options for passing in supported tags, and attributes
 
 ### Binary features
-- Config options for passing in supported tags, and attributes
 - Possibly split off HTML renderer as related project
 
 ## Installation:
@@ -25,7 +24,8 @@ embeded into react render functions.
 
 1. Install [Rust and cargo](http://doc.crates.io/)
 2. git clone git@github.com:whatisinternet/svg_to_react_coffee.git
-3. cd svg_to_react_coffee && cargo build --release
+3. Library: cd svg_to_react_coffee && cargo build --release --lib
+3. Executable: cd svg_to_react_coffee && cargo build --release --lib && cargo build --release --bin svg_to_react_bin
 4. You can find the executable in target/release
 
 ## Usage:

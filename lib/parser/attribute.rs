@@ -6,20 +6,27 @@ use parser::util::tab_in;
 use parser::util::parse_off_extra_w3c_details;
 use parser::util::valid_react_attribute;
 
-pub fn build_attributes(attributes: Vec<xml::attribute::OwnedAttribute>, depth: usize) {
+pub fn build_attributes(
+    attributes: Vec<xml::attribute::OwnedAttribute>,
+    depth: usize) -> Vec<String> {
+
+    let mut element_attributes: Vec<String> = vec!();
     for attribute in attributes{
-        print_valid_attribute( depth, attribute )
+        let valid_attribute: String = valid_attribute( depth, attribute ).to_string();
+        element_attributes.push(valid_attribute);
     }
-    println!("{},", tab_in(depth +1));
+    element_attributes.push( format!("{},", tab_in(depth +1)));
+    return element_attributes;
 }
 
-    fn print_valid_attribute( depth: usize, attribute: xml::attribute::OwnedAttribute) {
+    fn valid_attribute( depth: usize, attribute: xml::attribute::OwnedAttribute) -> String {
         let temp_attribute: String = format!("{}", attribute);
         let parsed_attribute: String = parse_off_extra_w3c_details(temp_attribute);
         let transformed_attribute: String = format!("{}",transform_attribute(parsed_attribute));
         if transformed_attribute != ""{
-            println!("{}{}", tab_in(depth + 1), transformed_attribute);
+            return format!("{}{}", tab_in(depth + 1), transformed_attribute).to_string();
         }
+    return "".to_string();
     }
 
 
