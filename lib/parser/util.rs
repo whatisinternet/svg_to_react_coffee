@@ -8,6 +8,15 @@ pub fn tab_in<'a>(depth: usize) -> String {
     return format!("{}",&tabs);
 }
 
+#[test]
+fn it_should_tab_in_a_specific_depth() {
+    let depth: usize = 0;
+    let test_string: String = tab_in(depth);
+    let asserted_tabs = 2;
+    println!("|{}|{}|", asserted_tabs, test_string.len());
+    assert!(asserted_tabs == test_string.len());
+}
+
 pub fn parse_off_extra_w3c_details<'a> (input_string: String) -> String{
     let string_vector: Vec<&str> = input_string.split("}").collect();
     return format!("{}", string_vector[1]);
