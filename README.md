@@ -11,16 +11,6 @@ embedded into react render functions.
 # Demo:
 [Demo app](https://github.com/whatisinternet/react-svg-demo)
 
-## TODO:
-
-### Library features
-- TESTS!
-- Return warnings on failed tags
-- Config options for passing in supported tags, and attributes
-
-### Binary features
-- Possibly split off HTML renderer as related project
-
 ## Installation:
 
 ### Compile yourself:

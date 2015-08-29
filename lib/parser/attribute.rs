@@ -13,7 +13,9 @@ pub fn build_attributes(
     let mut element_attributes: Vec<String> = vec!();
     for attribute in attributes{
         let valid_attribute: String = valid_attribute( depth, attribute ).to_string();
-        element_attributes.push(valid_attribute);
+        if valid_attribute != "".to_string(){
+            element_attributes.push(valid_attribute);
+        }
     }
     element_attributes.push( format!("{},", tab_in(depth +1)));
     return element_attributes;
