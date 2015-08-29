@@ -1,7 +1,10 @@
 # SVG to React Coffee
 
+[![Build
+Status](https://travis-ci.org/whatisinternet/svg_to_react_coffee.svg)](https://travis-ci.org/whatisinternet/svg_to_react_coffee)
+
 Converts SVG images into valid React SVG components that can be easily
-embeded into react render functions.
+embedded into react render functions.
 
 -----
 

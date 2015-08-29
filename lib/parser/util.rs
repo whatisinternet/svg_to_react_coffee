@@ -13,6 +13,7 @@ pub fn parse_off_extra_w3c_details<'a> (input_string: String) -> String{
     return format!("{}", string_vector[1]);
 }
 
+
 pub fn valid_react_attribute(test_element: &str) -> bool {
     let valid_react_attributes= [
 "clipPath", "cx", "cy", "d", "dx", "dy", "fill", "fillOpacity", "fontFamily",
@@ -50,3 +51,60 @@ pub fn valid_react_dom_element (test_element: &str) -> bool {
         "rect", "stop", "svg", "text", "tspan"];
     return valid_react_elements.contains(&test_element)
 }
+
+#[cfg(test)]
+mod util_test{
+    use parser::util::*;
+
+    #[test]
+    fn it_should_tab_in_a_specific_depth() {
+
+        let depth: usize = 0;
+        let test_string: String = tab_in(depth);
+        let asserted_tabs = 2;
+
+        assert!(asserted_tabs == test_string.len());
+    }
+
+    #[test]
+    fn it_should_parse_off_any_extra_w3c_details_created_by_xml_parser() {
+        let test_string: String =
+            parse_off_extra_w3c_details("{w3c}svg".to_string());
+
+        let asserted_string: String =
+            "svg".to_string();
+
+        assert!(asserted_string == test_string);
+    }
+
+    #[test]
+    fn it_should_should_permit_a_valid_attribute() {
+        assert!(valid_react_attribute("x"));
+    }
+
+    #[test]
+    fn it_should_should_permit_a_valid_data_attribute() {
+        assert!(valid_react_attribute("data-something"));
+    }
+
+    #[test]
+    fn it_should_should_permit_a_valid_aria_attribute() {
+        assert!(valid_react_attribute("aria-something"));
+    }
+
+    #[test]
+    fn it_should_should_reject_an_invalid_attribute() {
+        assert!(valid_react_attribute("invalid_attribute") == false);
+    }
+    #[test]
+    fn it_should_should_permit_a_valid_element() {
+        assert!(valid_react_dom_element("svg"));
+    }
+
+    #[test]
+    fn it_should_should_reject_an_invalid_element() {
+        assert!(valid_react_dom_element("invalid_element") == false);
+    }
+
+}
+
