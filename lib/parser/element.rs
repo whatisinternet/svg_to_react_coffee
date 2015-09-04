@@ -2,12 +2,12 @@ extern crate xml;
 use parser::attribute::*;
 use parser::util::tab_in;
 use parser::util::parse_off_extra_w3c_details;
-use parser::util::valid_react_dom_element;
+use parser::util::valid_react_dom_svg_element;
 
 pub fn is_valid_element(name: String) -> bool {
     let temp_name: String = format!("{}", name);
     let svg_tag: String = parse_off_extra_w3c_details(temp_name);
-    if valid_react_dom_element(&svg_tag) {
+    if valid_react_dom_svg_element(&svg_tag) {
         return true
     }
     return false
@@ -27,7 +27,7 @@ pub fn build_element(name: String,
                            attributes: Vec<String>,
                            depth: usize) -> Vec<String>{
         let mut valid_element_and_attributes: Vec<String> = vec!();
-        if valid_react_dom_element(&svg_tag) {
+        if valid_react_dom_svg_element(&svg_tag) {
             valid_element_and_attributes = element_and_attributes(svg_tag, attributes, depth);
         }
         return valid_element_and_attributes;
@@ -37,7 +37,7 @@ pub fn build_element(name: String,
                            attributes: Vec<String>,
                            depth: usize) -> Vec<String>{
 
-            let mut dom_element: Vec<String> = 
+            let mut dom_element: Vec<String> =
                 vec!(format!("{}React.DOM.{}", tab_in(depth), svg_tag));
 
             let dom_element_attributes: Vec<String> = build_attributes(attributes, depth);
@@ -59,7 +59,7 @@ fn it_should_return_valid_dom_elemet_from_element() {
                                                 mock_svg_attribute,
                                                 mock_depth);
 
-    let expected_element_string: String = 
+    let expected_element_string: String =
         format!("{}{}", tab_in(mock_depth), "React.DOM.svg".to_string());
 
     assert!( asserted_vector[0].to_string() == expected_element_string);
@@ -88,7 +88,7 @@ fn it_should_return_valid_dom_elemet() {
                                                             mock_svg_attribute,
                                                             mock_depth);
 
-    let expected_element_string: String = 
+    let expected_element_string: String =
         format!("{}{}", tab_in(mock_depth), "React.DOM.svg".to_string());
 
     assert!( asserted_vector[0].to_string() == expected_element_string);
@@ -137,7 +137,7 @@ mod util_test{
                                                     mock_svg_attribute,
                                                     mock_depth);
 
-        let expected_element_string: String = 
+        let expected_element_string: String =
             format!("{}{}", tab_in(mock_depth), "React.DOM.svg".to_string());
 
         assert!( asserted_vector[0].to_string() == expected_element_string);

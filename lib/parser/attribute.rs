@@ -4,7 +4,7 @@ extern crate case;
 use case::CaseExt;
 use parser::util::tab_in;
 use parser::util::parse_off_extra_w3c_details;
-use parser::util::valid_react_attribute;
+use parser::util::valid_react_svg_attribute;
 
 pub fn build_attributes(
     attributes: Vec<String>,
@@ -42,7 +42,7 @@ pub fn build_attributes(
 
             fn formatted_attribute ( attribute_key: &str, attribute_value: &str) -> String {
                 let temp_attribute = attribute_key.replace("-","_").to_camel_lowercase().to_string();
-                if valid_react_attribute(&temp_attribute) {
+                if valid_react_svg_attribute(&temp_attribute) {
                     return parse_attribute(attribute_key, attribute_value);
                 }
                 return "".to_string();
